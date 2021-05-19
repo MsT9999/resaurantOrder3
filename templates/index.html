@@ -62,5 +62,16 @@
         <li>桌號
     </ul>
 </div>
+<script type="text/javascript">
+        window.setInterval(view, 20000);    //視窗每2秒執行view() function
+        function view() {       //view() function
+            var jsonobj = null  //空資料
+            $.getJSON("/allOrder/", {}, function (r) {   //接受Main.py的資料庫回傳值
+                jsonobj = r;        //將資料庫回傳值放到jsonobj
+
+            }
+        }
+        function control(val) { $.getJSON("/relay/" + val, {}, function (r) { }); }
+    </script>
 </body>
 </html>

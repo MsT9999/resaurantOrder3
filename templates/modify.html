@@ -3,114 +3,118 @@
 <head>
     <meta charset="utf-8">
     <title>點餐系統</title>
-   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/pagination.css') }}">
 
 </head>
 <body>
-    <table>
-        <tr>
-            <td style="width:5%"></td><td style="width:5%"></td>
-            <td style="width:24%"><h1>刪除訂單</h1></td><td style="width:5%"></td>
-            <td style="width:5%"><button type="submit" value="modify" onclick="location.href='index'" class="modify_class">修改</button></td>
-        </tr>
-    </table>
-    <div class="information">請輸入欲修改訂單之資料(部分即可)</div>
-    <table>
-        <thead>
-            <tr>
-                <th colspan="2">請輸入欲修改訂單之顧客資料內容(部分即可)</th>
-            </tr>
-        </thead>
-        <tbody class="form_body">
-            <tr>
-                <td>客人姓名:<input type="text"></td>
-                <td>客人電話:<input type="text"></td>
-            </tr>
+<table>
+    <tr>
+        <td style="width:5%"></td>
+        <td style="width:5%"></td>
+        <td style="width:24%"><h1>刪除訂單</h1></td>
+        <td style="width:5%"></td>
+        <td style="width:5%">
+            <button type="submit" value="modify" onclick="location.href='index'" class="modify_class">修改</button>
+        </td>
+    </tr>
+</table>
+<div class="information">請輸入欲修改訂單之資料(部分即可)</div>
+<table>
+    <thead>
+    <tr>
+        <th colspan="2">請輸入欲修改訂單之顧客資料內容(部分即可)</th>
+    </tr>
+    </thead>
+    <tbody class="form_body">
+    <tr>
+        <td>客人姓名:<input type="text"></td>
+        <td>客人電話:<input type="text"></td>
+    </tr>
 
-            <tr>
-                <td>是否為VIP:<input type="text"></td>
-                <td>桌號:<input type="text"></td>
-            </tr>
-        </tbody>
-    </table>
-    
-    <br>
-    <table>
-        <thead>
-            <tr>
-                <th colspan="2">請輸入欲修改訂單之顧客餐點內容(部分即可)</th>
-            </tr>
-        </thead>
-        <tbody class="form_body">
-            <tr>
-                <td>頭盤:<input type="text"></td>
-                <td>湯品:<input type="text"></td>
-            </tr>
+    <tr>
+        <td>是否為VIP:<input type="text"></td>
+        <td>桌號:<input type="text"></td>
+    </tr>
+    </tbody>
+</table>
 
-            <tr>
-                <td>副菜:<input type="text"></td>
-                <td>主菜:<input type="text"></td>
-            </tr>
+<br>
+<table>
+    <thead>
+    <tr>
+        <th colspan="2">請輸入欲修改訂單之顧客餐點內容(部分即可)</th>
+    </tr>
+    </thead>
+    <tbody class="form_body">
+    <tr>
+        <td>頭盤:<input type="text"></td>
+        <td>湯品:<input type="text"></td>
+    </tr>
 
-            <tr>
-                <td>蔬菜:<input type="text"></td>
-                <td>甜點/冰淇淋:<input type="text"></td>
-            </tr>
-            <tr>
-                <td colspan="2">咖啡/茶:<input type="text"></td>
-            </tr>
-        </tbody>
-    </table>
-    <br>
-    <hr>
-    <br>
-    <div class="information">請輸入修改訂單之內容(部分即可)</div>
-    <table>
-        <thead>
-            <tr>
-                <th colspan="2">請輸入修改訂單之顧客內容(部分即可)</th>
-            </tr>
-        </thead>
-        <tbody class="form_body">
-            <tr>
-                <td>客人姓名:<input type="text"></td>
-                <td>客人電話:<input type="text"></td>
-            </tr>
+    <tr>
+        <td>副菜:<input type="text"></td>
+        <td>主菜:<input type="text"></td>
+    </tr>
 
-            <tr>
-                <td>是否為VIP:<input type="text"></td>
-                <td>桌號:<input type="text"></td>
-            </tr>
-        </tbody>
-    </table>
-    
-    <br>
-    <table>
-        <thead>
-            <tr>
-                <th colspan="2">請輸入修改訂單之餐點內容(部分即可)</th>
-            </tr>
-        </thead>
-        <tbody class="form_body">
-            <tr>
-                <td>頭盤:<input type="text"></td>
-                <td>湯品:<input type="text"></td>
-            </tr>
+    <tr>
+        <td>蔬菜:<input type="text"></td>
+        <td>甜點/冰淇淋:<input type="text"></td>
+    </tr>
+    <tr>
+        <td colspan="2">咖啡/茶:<input type="text"></td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<hr>
+<br>
+<div class="information">請輸入修改訂單之內容(部分即可)</div>
+<table>
+    <thead>
+    <tr>
+        <th colspan="2">請輸入修改訂單之顧客內容(部分即可)</th>
+    </tr>
+    </thead>
+    <tbody class="form_body">
+    <tr>
+        <td>客人姓名:<input type="text"></td>
+        <td>客人電話:<input type="text"></td>
+    </tr>
 
-            <tr>
-                <td>副菜:<input type="text"></td>
-                <td>主菜:<input type="text"></td>
-            </tr>
+    <tr>
+        <td>是否為VIP:<input type="text"></td>
+        <td>桌號:<input type="text"></td>
+    </tr>
+    </tbody>
+</table>
 
-            <tr>
-                <td>蔬菜:<input type="text"></td>
-                <td>甜點/冰淇淋:<input type="text"></td>
-            </tr>
-            <tr>
-                <td colspan="2">咖啡/茶:<input type="text"></td>
-            </tr>
-        </tbody>
-    </table>
+<br>
+<table>
+    <thead>
+    <tr>
+        <th colspan="2">請輸入修改訂單之餐點內容(部分即可)</th>
+    </tr>
+    </thead>
+    <tbody class="form_body">
+    <tr>
+        <td>頭盤:<input type="text"></td>
+        <td>湯品:<input type="text"></td>
+    </tr>
+
+    <tr>
+        <td>副菜:<input type="text"></td>
+        <td>主菜:<input type="text"></td>
+    </tr>
+
+    <tr>
+        <td>蔬菜:<input type="text"></td>
+        <td>甜點/冰淇淋:<input type="text"></td>
+    </tr>
+    <tr>
+        <td colspan="2">咖啡/茶:<input type="text"></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
