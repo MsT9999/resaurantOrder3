@@ -8,6 +8,10 @@
     <title>點餐系統</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/pagination.css') }}">
+    <!--  JS Code  -->
+    <script type="text/javascript" src="./static/script/insert.js"></script>
+    <!--jQuery-->
+    <script type="text/javascript" src="./static/script/jquery.min.js"></script>
 
 </head>
 <body>
@@ -18,7 +22,7 @@
         <td style="width:24%"><h1>新增訂單</h1></td>
         <td style="width:5%"></td>
         <td style="width:5%">
-            <button type="submit" value="insert" onclick="location.href='index'" class="insert_class">送出</button>
+            <button type="submit" value="insert" id="summitBtn" onclick="addData()" class="insert_class">送出</button>
         </td>
 
     </tr>
@@ -32,8 +36,8 @@
     </thead>
     <tbody class="form_body">
     <tr>
-        <td>客人姓名:<input type="text"></td>
-        <td>客人電話:<input type="text"></td>
+        <td>客人姓名:<input type="text" id = "name"></td>
+        <td>客人電話:<input type="text" id ="phoneNumber"></td>
     </tr>
 
     <tr>

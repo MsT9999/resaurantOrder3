@@ -1,4 +1,4 @@
-window.setInterval(view, 5000);    //視窗每5秒執行view() function
+// window.setInterval(view, 10000);    //視窗每10秒執行view() function
 function view() {       //view() function
     var jsonobj = null  //空資料
     $.getJSON("/allOrder/", {}, function (r) {   //接受Main.py的資料庫回傳值

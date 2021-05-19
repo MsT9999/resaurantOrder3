@@ -22,14 +22,38 @@ def connectDB():
 def findAllOrder():
     db = connectDB()
     mycol = db.order
-    data ={}
+    data={}
     print(mycol.count_documents({}))  # db['mycol']內有多少筆資料
     doc: object
     for num,doc in enumerate(mycol.find({})):
-        print("doc {}: {}".format(num, doc))
-        data[str(num)] = doc
-    print(data)
+        # print("doc {}: {}".format(num, doc))  # 印出json內容確認
+        data[num]=doc
+    # print(data)
     return data
+
+def insert(jsonodj):
+    db = connectDB()
+    mycol = db.order
+    today = datetime.datetime.now()  # 當日日期
+    datestr = str(today).split(' ')[0].replace('-', '')  # 當日日期字串處理
+    timestr = str(today).split(' ')[1].split('.')[0].replace('.', '')
+    post = {
+        "_id": str(today),
+        "date": datestr,
+        "time": timestr,
+        "data":jsonodj
+    }
+    mycol.insert_one(post)
+    print("successfully inserted")
+
+# 測試功能example 修改
+def example_update(query,newvalues):
+    db = connectDB()
+    mycol = db.order
+    myquery = {"_id": "20210425001"}
+    newvalues = {"$set": {"telephone": "(11)11111111"}}
+    mycol.update_one(myquery, newvalues)
+    print("modified")
 
 # 測試功能example 修改
 def example_update():
@@ -54,26 +78,30 @@ def example_del():
 def example_insert():
     db = connectDB()
     posts = db.order
-    today = datetime.datetime.now()  # 當日日期 2021-04-25 ...
-    datestr = str(today).split(' ')[0].replace('-', '')  # 當日日期字串處理 20210425
+    today = datetime.datetime.now()  # 當日日期
+    datestr = str(today).split(' ')[0].replace('-', '') # 當日日期字串處理
+    timestr = str(today).split(' ')[1].split('.')[0].replace('.', '')
+    print(datestr,timestr)
     post = {
-        "_id": "20210516001",
-        " Customer_name": "王小明",
-        "telephone": "0923547813",
-        "VIP": False,
-        "Meals": {
-            "pre-meal": ["salad", "chowder"],
-            "Main_meal": "pasta",
-            "dessert": " cheese cake",
-            "drink": "Americano"
-        },
-        "Table_number": "01"
+        "_id": str(today),
+        "date": datestr,
+        "time": timestr,
+        "data": {"Customer_name": "王小明",
+         "telephone": "0923547813",
+         "VIP": False,
+         "Meals": {
+             "pre-meal": ["salad", "chowder"],
+             "Main_meal": "pasta",
+             "dessert": " cheese cake",
+             "drink": "Americano"
+         },
+         "Table_number": "01"}
     }
     post_id = posts.insert_one(post)
-    print(post_id + " inserted")
+    print(str(post_id) + " inserted")
 
 
 # 主程式測試
 if __name__ == '__main__':
-    connectDB()
-    findAllOrder()
+    # findAllOrder()
+    example_insert()
