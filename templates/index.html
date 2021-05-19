@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>點餐系統</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+
+</head>
+<body>
+<table>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="width:24%"><h1>訂單列表</h1></td>
+        <td></td>
+        <td>
+            <button type="button" value="insert" onclick="location.href='insert'" class="insert_class">新增訂單
+            </button>
+        </td>
+        <td>
+            <button type="button" value="insert" onclick="location.href='insertV2'" class="insert_class">新增訂單V2
+            </button>
+        </td>
+        <td>
+            <button type="button" value="delete" onclick="location.href='delete'" class="delete_class">刪除指定訂單
+            </button>
+        </td>
+        <td>
+            <button type="button" value="search" onclick="location.href='modify'" class="modify_class">修改指定訂單
+            </button>
+        </td>
+    </tr>
+</table>
+<div class="guest">
+    <div class="list_head">訂單編號:</div>
+    <ul>
+        <li>客人姓名:
+        <li>客人電話:
+        <li>是否為VIP:
+        <li>餐點內容
+            <ul>
+                <li>前菜:
+                <li>主菜:
+            </ul>
+        <li>桌號
+    </ul>
+</div>
+
+<div class="guest">
+    <div class="list_head">訂單編號:</div>
+    <ul>
+        <li>客人姓名:
+        <li>客人電話:
+        <li>是否為VIP:
+        <li>餐點內容
+            <ul>
+                <li>飲料:
+            </ul>
+        <li>桌號
+    </ul>
+</div>
+</body>
+</html>

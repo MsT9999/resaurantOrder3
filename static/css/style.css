@@ -1,0 +1,33 @@
+h1{
+    text-align: center;
+    font-size: 400%;
+}
+
+body {
+    background-image: url('background.PNG');
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+table{
+    width: 100%;
+}
+
+.insert_class{
+    background-color: #99e6ff;
+    border:blue double;
+    font-size: 150%;
+    height: 50px;
+}
+.delete_class{
+    background-color: #ffb3d9;
+    border:#ff1a1a double;
+    font-size: 120%;
+    height: 50px;
+}
+.modify_class{
+    background-color: #80ffaa;
+    border:#00e64d double;
+    font-size: 120%;
+    height: 50px;
+}

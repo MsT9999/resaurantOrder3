@@ -1,0 +1,25 @@
+.information{
+    font-size: 180%;
+    font-weight: 500;
+}
+
+hr{
+    color: gray;
+    border: dashed;
+}
+
+td{
+    width: 5%;
+    text-align: center;
+}
+
+thead{
+    background-color: #ffd633;
+    font-size: 150%;
+    text-align: center;
+}
+
+.form_body{
+    background-color: #ffcc80;
+    border-width: 20%;
+}

@@ -1,0 +1,16 @@
+
+td{
+    width: 7%;
+    text-align: center;
+}
+
+
+.guest{
+    background-color: #ffcc80;
+}
+
+.list_head{
+    background-color: #ffd633;
+    font-size: 120%;
+    text-align: center;
+}

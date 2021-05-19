@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>點餐系統</title>
+     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/pagination.css') }}">
+
+</head>
+<body>
+    <table>
+        <tr>
+            <td style="width:5%"></td><td style="width:5%"></td>
+            <td style="width:24%"><h1>新增訂單</h1></td><td style="width:5%"></td>
+            <td style="width:5%"><button type="submit" value="insert" onclick="location.href='index'" class="insert_class">送出</button></td>
+        </tr>
+    </table>
+
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2">請輸入欲新增訂單之顧客資料</th>
+            </tr>
+        </thead>
+        <tbody class="form_body">
+            <tr>
+                <td>客人姓名:<input type="text"></td>
+                <td>客人電話:<input type="text"></td>
+            </tr>
+
+            <tr>
+                <td>是否為VIP:<input type="text"></td>
+                <td>桌號:<input type="text"></td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2">請輸入欲新增訂單之餐點內容</th>
+            </tr>
+        </thead>
+        <tbody class="form_body">
+            <tr>
+                <td>頭盤:<input type="text"></td>
+                <td>湯品:<input type="text"></td>
+            </tr>
+
+            <tr>
+                <td>副菜:<input type="text"></td>
+                <td>主菜:<input type="text"></td>
+            </tr>
+
+            <tr>
+                <td>蔬菜:<input type="text"></td>
+                <td>甜點/冰淇淋:<input type="text"></td>
+            </tr>
+            <tr>
+                <td colspan="2">咖啡/茶:<input type="text"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
