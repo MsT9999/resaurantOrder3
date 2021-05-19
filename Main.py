@@ -39,13 +39,13 @@ def insertPage():
 
 # insert.html
 @app.route('/insertV2')
-def insertPage():
+def insertV2Page():
     return render_template('insertV2.html')
 
 
 # index.html
 @app.route('/index')
-def indexPage():
+def indeㄌPage():
     return render_template('index.html')
 
 
