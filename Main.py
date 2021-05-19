@@ -18,7 +18,11 @@ def PostOne(VAL):  # 新增doc到db collection
 
     return ""
 
+@app.route('/Update/<VAL>')
+def UpdateOne(VAL):  # 新增doc到db collection
+    print(VAL)
 
+    return ""
 # modify.html
 @app.route('/modify')
 def modifyPage():
