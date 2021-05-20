@@ -69,21 +69,22 @@ def find_this():  # 更新doc到db collection
 
 
 # 資料insert
-@app.route('/insertAnOrder', methods=["GET", "POST"])
+@app.route('/insertAn', methods=["GET", "POST"])
 def insert_an_order():  # 新增doc到db collection
     # 由於POST、GET獲取資料的方式不同，需要使用if語句進行判斷
+    name = ""
     if request.method == "POST":
         name = request.form.get("name")
         data = request.form
     if request.method == "GET":
         name = request.args.get("name")
-        data = request.arg
+        data = request.args
         # 如果獲取的資料為空
-    print("request = ", data)
-
-    if len(name) == 0:
+    print(request)
+    if name is None:
         return {'message': "error!"}
     else:
+        print("request = ", data)
         myMgDB.insert(data)
         return {'message': "success!", "data": data}
 
@@ -98,13 +99,13 @@ def delete_by_idKey():
     if request.method == "GET":
         idToDel = request.args.get("idKey")
     print(idToDel)
+    if idToDel is None:
+        return {'message': "error!", "action": "delete"}
     try:
         myMgDB.delByID(idToDel)  # 刪除該資料
         return {'message': "success!", "action": "delete"}
     except Exception as e:
         print(e)
-        return {'message': "error!", "action": "delete"}
-
 
 #
 # 資料UpdateOne
