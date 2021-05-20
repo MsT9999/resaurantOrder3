@@ -22,12 +22,12 @@ def connectDB():
 def findAllOrder():
     db = connectDB()
     mycol = db.order
-    data={}
+    data=[]
     print(mycol.count_documents({}))  # db['mycol']內有多少筆資料
     doc: object
     for num,doc in enumerate(mycol.find({})):
         # print("doc {}: {}".format(num, doc))  # 印出json內容確認
-        data[num]=doc
+        data.append(doc)
     # print(data)
     return data
 
