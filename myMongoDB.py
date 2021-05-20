@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # 後端連接
 import datetime
 import pymongo
@@ -22,14 +22,15 @@ def connectDB():
 def findAllOrder():
     db = connectDB()
     mycol = db.order
-    data=[]
+    data = []
     print(mycol.count_documents({}))  # db['mycol']內有多少筆資料
     doc: object
-    for num,doc in enumerate(mycol.find({})):
+    for num, doc in enumerate(mycol.find({})):
         # print("doc {}: {}".format(num, doc))  # 印出json內容確認
         data.append(doc)
     # print(data)
     return data
+
 
 def insert(jsonodj):
     db = connectDB()
@@ -41,19 +42,31 @@ def insert(jsonodj):
         "_id": str(today),
         "date": datestr,
         "time": timestr,
-        "data":jsonodj
+        "data": jsonodj
     }
     mycol.insert_one(post)
     print("successfully inserted")
 
+
+# 單筆刪除
+def delByID(idKey):
+    db = connectDB()
+    mycoll = db.order
+    print("id=",idKey)
+    query = {"_id": idKey}
+    mycoll.delete_one(query)
+    print("deleted")
+
+
 # 測試功能example 修改
-def example_update(query,newvalues):
+def example_update(query, newvalues):
     db = connectDB()
     mycol = db.order
     myquery = {"_id": "20210425001"}
     newvalues = {"$set": {"telephone": "(11)11111111"}}
     mycol.update_one(myquery, newvalues)
     print("modified")
+
 
 # 測試功能example 修改
 def example_update():
@@ -79,23 +92,26 @@ def example_insert():
     db = connectDB()
     posts = db.order
     today = datetime.datetime.now()  # 當日日期
-    datestr = str(today).split(' ')[0].replace('-', '') # 當日日期字串處理
+    datestr = str(today).split(' ')[0].replace('-', '')  # 當日日期字串處理
     timestr = str(today).split(' ')[1].split('.')[0].replace('.', '')
-    print(datestr,timestr)
+    print(datestr, timestr)
     post = {
-        "_id": str(today),
+        "_id": str(today).replace(" ", "_").replace(":", "."),
         "date": datestr,
         "time": timestr,
-        "data": {"Customer_name": "王小明",
-         "telephone": "0923547813",
-         "VIP": False,
-         "Meals": {
-             "pre-meal": ["salad", "chowder"],
-             "Main_meal": "pasta",
-             "dessert": " cheese cake",
-             "drink": "Americano"
-         },
-         "Table_number": "01"}
+        "data": {"Customer_name": "凹醬",
+                 "telephone": "0912123123",
+                 "VIP": False,
+                 "Meals": {
+                     "pre": ["salad", "chowder"],
+                     "soup": "today special",
+                     "main": ["pasta", "pizza"],
+                     "dish": "主廚推薦",
+                     "garnishes": "當季時蔬",
+                     "dessert": ["cheese cake", "ice cream"],
+                     "drink": "Americano"
+                 },
+                 "Table_number": "18"}
     }
     post_id = posts.insert_one(post)
     print(str(post_id) + " inserted")

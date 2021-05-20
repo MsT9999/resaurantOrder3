@@ -61,14 +61,28 @@ def insertAnOrder():  # 新增doc到db collection
         # 如果獲取的資料為空
     print("request = ",data)
 
-
     if len(name) == 0:
         return {'message': "error!"}
     else:
         myMgDB.insert(data)
         return {'message': "success!", "data":data}
+# 刪除單筆紀錄
+@app.route('/delele1',methods=["GET", "POST"])
+def delete1():
+    idToDel=""
+    if request.method == "POST":
+        idToDel = request.form.get("idKey")
+    if request.method == "GET":
+        idToDel = request.args.get("idKey")
+    print(idToDel)
+    try:
+        myMgDB.delByID(idToDel)
+        return {'message':"success!","action":"delete"}
+    except Exception as e:
+        print(e)
+        return {'message': "error!","action":"delete"}
 
-# 資料insert
+# 資料Update
 @app.route('/Update', methods=["GET", "POST"])
 def UpdateOne():  # 更新doc到db collection
     print()
@@ -76,7 +90,7 @@ def UpdateOne():  # 更新doc到db collection
     return ""
 
 
-# (參考用)
+# (以下參考用)
 # 前端網頁回傳測試
 @app.route('/test')
 def testP():
@@ -103,4 +117,5 @@ def submit():
     # (以上為參考測試用)
 
 if __name__ == "__main__":
+    app.config['TEMPLATES_AUTO_RELOAD'] = True  # 當template有修改會自動更新
     app.run()
