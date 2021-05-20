@@ -68,21 +68,20 @@ def find_this():  # 更新doc到db collection
 
 
 # 資料insert
-@app.route('/insertAn', methods=["GET", "POST"])
+@app.route('/insertAn', methods=['GET', 'POST'])
 def insert_an_order():  # 新增doc到db collection
     # 由於POST、GET獲取資料的方式不同，需要使用if語句進行判斷
     name = ""
     if request.method == "POST":
-        name = request.form.get("name")
-        data = request.form
+        name = request.get_json()["name"]
+        data = request.get_json()
     if request.method == "GET":
-        name = request.args.get("name")
-        data = request.args
-    print(request)
+        name = request.get_json()["name"]
+        data = request.get_json()
+        # 如果獲取的資料為空
     if name is None:
         return {'message': "error!"}
     else:
-        print("request = ", data)
         myMgDB.insert(data)
         return {'message': "success!", "data": data}
 
