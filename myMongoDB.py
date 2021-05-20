@@ -12,27 +12,33 @@ def connectDB():
             "mongodb+srv://dbUser1:test123@dbtest.ojwhb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
         )
         db = client.restaurant
-        print('restaurant db connect succeed')
+        print('<db connect succeed>')
         return db
     except Exception as e:
         print(e)
+        print('<db connect failed>')
 
 
 # 讀取db collection中全部資料，並集合成list回傳
 def findAllOrder():
-    db = connectDB()
-    mycol = db.order
-    data = []
-    print(mycol.count_documents({}))  # db['mycol']內有多少筆資料
-    doc: object
-    for num, doc in enumerate(mycol.find({})):
-        # print("doc {}: {}".format(num, doc))  # 印出json內容確認
-        data.append(doc)
-    # print(data)
-    return data
+    try:
+        db = connectDB()
+        mycol = db.order
+        data = []
+        print(mycol.count_documents({}))  # db['mycol']內有多少筆資料
+        doc: object
+        for num, doc in enumerate(mycol.find({})):
+            # print("doc {}: {}".format(num, doc))  # 印出json內容確認
+            data.append(doc)
+        # print(data)
+        return data
+    except Exception as e:
+        print(e)
+        return "action:find all <error!>"
 
 
 # insert_one
+# input parameter為 dict,json...
 def insert(jsonodj):
     db = connectDB()
     mycol = db.order
@@ -52,12 +58,15 @@ def insert(jsonodj):
 # delete_one
 # 單筆刪除
 def delByID(idKey):
-    db = connectDB()
-    mycoll = db.order
-    print("id=", idKey)
+    print("<to del> id=", idKey)
     query = {"_id": idKey}
-    mycoll.delete_one(query)
-    print("deleted")
+    try:
+        db = connectDB()
+        mycoll = db.order
+        mycoll.delete_one(query)
+        print("[" + idKey + "]deleted")
+    except Exception as e:
+        print(e)
 
 
 # findMany
@@ -78,7 +87,7 @@ def findMany(query=""):
 
 
 # find_one()
-# db collection中符合query的doc，並集合成list回傳
+# db collection中符合query的第一筆doc
 def findOne(query=""):
     if query == "":
         query = {"date": "20210520"}
