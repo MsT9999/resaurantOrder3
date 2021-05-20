@@ -89,7 +89,7 @@ function control(val) {
         url: "/delele1", /*資料(idKey)提交到delele1處*/
         type: "POST", /*採用POST方法提交*/
         data: { "idKey": val,"action":"going to Delete"
-        }, /*提交的資料（json格式），從輸入框中獲取*/
+        }, /*提交的資料（json格式）*/
     /*result為後端函數返回的json*/
         success: function (result) {
             if (result.message == "success!") {
