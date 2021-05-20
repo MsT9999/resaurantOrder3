@@ -46,7 +46,7 @@ def insert(jsonodj):
     datestr = str(today).split(' ')[0].replace('-', '')  # 當日日期字串處理
     timestr = str(today).split(' ')[1].split('.')[0].replace('.', '')
     post = {
-        "_id": str(today),
+        "_id": str(today).replace(" ", "_").replace(":", "."),
         "date": datestr,
         "time": timestr,
         "data": jsonodj
