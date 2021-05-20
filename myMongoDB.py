@@ -32,6 +32,7 @@ def findAllOrder():
     return data
 
 
+# insert_one
 def insert(jsonodj):
     db = connectDB()
     mycol = db.order
@@ -48,28 +49,48 @@ def insert(jsonodj):
     print("successfully inserted")
 
 
+# delete_one
 # 單筆刪除
 def delByID(idKey):
     db = connectDB()
     mycoll = db.order
-    print("id=",idKey)
+    print("id=", idKey)
     query = {"_id": idKey}
     mycoll.delete_one(query)
     print("deleted")
 
 
-# 測試功能example 修改
-def example_update(query, newvalues):
+# findMany
+# db collection中符合query的doc，並集合成list回傳
+def findMany(query=""):
+    if query == "":
+        query = {"date": "20210520"}
+    print(query)
     db = connectDB()
     mycol = db.order
-    myquery = {"_id": "20210425001"}
-    newvalues = {"$set": {"telephone": "(11)11111111"}}
-    mycol.update_one(myquery, newvalues)
-    print("modified")
+    data = []
+    doc: object
+    for num, doc in enumerate(mycol.find(query)):
+        print("doc {}: {}".format(num, doc))  # 印出json內容確認
+        data.append(doc)
+    print("data", data)
+    return data
+
+
+# find_one()
+# db collection中符合query的doc，並集合成list回傳
+def findOne(query=""):
+    if query == "":
+        query = {"date": "20210520"}
+    print(query)
+    db = connectDB()
+    mycol = db.order
+    data = mycol.find_one(query)
+    return data
 
 
 # 測試功能example 修改
-def example_update():
+def example_update(query, newvalues):
     db = connectDB()
     mycol = db.order
     myquery = {"_id": "20210425001"}
@@ -119,5 +140,6 @@ def example_insert():
 
 # 主程式測試
 if __name__ == '__main__':
-    # findAllOrder()
+    findAllOrder()
     example_insert()
+    find()
