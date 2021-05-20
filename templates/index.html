@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}"/>
     <!--  JS Code  -->
-    <script type="text/javascript" src="./static/script/index.js"></script>
+    <script type="text/javascript" src="./static/script/function.js"></script>
     <!--jQuery-->
     <script type="text/javascript" src="./static/script/jquery.min.js"></script>
     <!-- Bootstrap CSS -->
@@ -20,7 +20,9 @@
 <body>
 <table>
     <tr>
-        <td><button  class="btn btn-outline-info" onclick="view()">更新資料</button></td>
+        <td>
+            <button class="btn btn-outline-info" onclick="view()">更新資料</button>
+        </td>
         <td></td>
         <td></td>
         <td></td>
@@ -43,34 +45,43 @@
         </td>
     </tr>
 </table>
-<div class="guest">
-    <div class="list_head">訂單編號:</div>
-    <ul>
-        <li>客人姓名:
-        <li>客人電話:
-        <li>是否為VIP:
-        <li>餐點內容
-            <ul>
-                <li>前菜:
-                <li>主菜:
-            </ul>
-        <li>桌號
-    </ul>
-</div>
+<div id="history"></div>
+<script type="text/javascript">
+const jsonUrl = "/allOrder/";
+function view() {       //view() function
+    var jsonobj = null  //空資料
+    $.getJSON(jsonUrl,function (r) {   //接受Main.py的資料庫回傳值
+        jsonobj = r;
+        console.log("json:",jsonobj);//確認json
+        var data = jsonobj;
+        for (var item in data) {
+                let content =
+                    "<div class='guest'>" +
+                    "<div class='list_head'>訂單編號: "+data[item]._id+
+                    "</div>"+ "<ul>"+
+                    "<li>時間:" + data[item].date +" "+ data[item].time +
+                    "<li>客人姓名: " + data[item].data.Customer_name +
+                    "<li>客人電話: " + data[item].data.telephone +
+                     "<li>是否為VIP: " + data[item].data.VIP +
+                    "<li>餐點內容 "+
+                        "<ul>"+
+                            "<li> 前餐: "+ JSON.stringify(data[item].data.Meals.pre)+
+                            "<li> 湯品: "+ JSON.stringify(data[item].data.Meals.soup)+
+                            "<li> 副菜: "+ JSON.stringify(data[item].data.Meals.dish)+
+                            "<li> 主菜: "+ JSON.stringify(data[item].data.Meals.main)+
+                            "<li> 蔬菜: "+ JSON.stringify(data[item].data.Meals.garnishes)+
+                            "<li> 甜點: "+ JSON.stringify(data[item].data.Meals.dessert)+
+                            "<li> 飲品: "+ JSON.stringify(data[item].data.Meals.drink)+
+                        "</ul>"+
+                      "<li>桌號: "+ data[item].data.Table_number+
+                    "</ul></div>";
+                $("#history").append(content);
+        }
+    });
+}
+function deleteThis(){
 
-<div class="guest">
-    <div class="list_head">訂單編號:</div>
-    <ul>
-        <li>客人姓名:
-        <li>客人電話:
-        <li>是否為VIP:
-        <li>餐點內容
-            <ul>
-                <li>飲料:
-            </ul>
-        <li>桌號
-    </ul>
-</div>
-<div id="history">123</div>
+}
+</script>
 </body>
 </html>
