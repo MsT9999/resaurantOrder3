@@ -58,7 +58,6 @@ def find_this():  # 更新doc到db collection
         data = request.form
     if request.method == "GET":
         data = request.arg
-        # 如果獲取的資料為空
     print("request = ", data)
     try:
         rDate = myMgDB.findOne(data)
@@ -79,7 +78,6 @@ def insert_an_order():  # 新增doc到db collection
     if request.method == "GET":
         name = request.args.get("name")
         data = request.args
-        # 如果獲取的資料為空
     print(request)
     if name is None:
         return {'message': "error!"}
