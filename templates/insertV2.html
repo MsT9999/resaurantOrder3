@@ -9,21 +9,22 @@
     <title>點餐系統</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/pagination.css') }}">
-
+    <script src = "{{ url_for('static', filename='script/insert.js')}} "></script>
 </head>
 <body>
 <table>
     <tr>
         <td style="width:5%"></td>
         <td style="width:5%"></td>
-        <td style="width:24%"><h1>新增訂單</h1></td>
+        <td style="width:24%"><h1>新增</h1></td>
         <td style="width:5%"></td>
         <td style="width:5%">
-            <button type="submit" value="insert" onclick="location.href=''" class="insert_class">送出</button>
+            <button type="submit" value="insert" onclick="addData(); location.href='index'" class="insert_class">送出</button>
         </td>
     </tr>
 </table>
 <hr>
+
 <table>
     <thead>
     <tr>
@@ -32,217 +33,374 @@
     </thead>
     <tbody class="form_body">
     <tr>
-        <td>客人姓名:<input type="text"></td>
-        <td>客人電話:<input type="text"></td>
+        <td>客人姓名: &ensp; <input id = "name" type="text"></td>
+        <td>客人電話: &ensp; <input id = "phoneNumber" type="text"></td>
     </tr>
-
     <tr>
-        <td>是否為VIP:<input type="text"></td>
-        <td>桌號:<input type="text"></td>
+        <td>是否為VIP: &ensp; <input id = "VIP" type="text"></td>
+        <td>桌號: &ensp; <input id = "Table_number" type="text"></td>
     </tr>
     </tbody>
 </table>
-<br>
-<table>
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" id="nav_0" data-toggle="tab" href="#content_0" role="tab"
-               aria-controls="content_0" aria-selected="false">前餐</a>
-        </li>
 
-        <li class="nav-item">
-            <a class="nav-link" id="nav_1" data-toggle="tab" href="#content_1" role="tab" aria-controls="content_1"
-               aria-selected="false">主餐</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="nav_2" data-toggle="tab" href="#contact_2" role="tab" aria-controls="contact_2"
-               aria-selected="false">青菜類</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="nav_3" data-toggle="tab" href="#contact_3" role="tab" aria-controls="contact_3"
-               aria-selected="false">甜點</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="nav_4" data-toggle="tab" href="#contact_4" role="tab" aria-controls="contact_4"
-               aria-selected="false">飲料</a>
-        </li>
-    </ul>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="nav_0" data-toggle="tab" href="#contact_0" role="tab"
+           aria-controls="content_0" aria-selected="false">前餐</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="nav_1" data-toggle="tab" href="#contact_1" role="tab" aria-controls="content_1"
+           aria-selected="false">湯</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="nav_2" data-toggle="tab" href="#contact_2" role="tab" aria-controls="contact_2"
+           aria-selected="false">副菜</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="nav_3" data-toggle="tab" href="#contact_3" role="tab" aria-controls="contact_3"
+           aria-selected="false">主菜</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="nav_4" data-toggle="tab" href="#contact_4" role="tab" aria-controls="contact_4"
+           aria-selected="false">蔬菜</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="nav_5" data-toggle="tab" href="#contact_5" role="tab" aria-controls="contact_5"
+           aria-selected="false">甜點/冰淇淋</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="nav_6" data-toggle="tab" href="#contact_6" role="tab" aria-controls="contact_6"
+           aria-selected="false">咖啡/飲料</a>
+    </li>
+</ul>
 
-    <div class="tab-content" id="myTabContent">
-
-        <div class="tab-pane fade show active" id="content_0" role="tabpanel" aria-labelledby="nav_0">
-
-            <!-- 瀑布流 -->
-            <div class="mt-5">
-                <h1 class="mt-3 mb-3 text-center">前餐</h1>
-                <div class="card-columns">
-
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane active" id="contact_0">
+        <h1 class="mt-3 mb-3 text-center">前餐</h1>
+        <table>
+            <tr>
+                <td>
                     <div class="card">
                         <div class="card-body">
                             <input type="button" id="premeal_1" value="菲達起司鮮果沙拉"
-                                   style="width:300px;height:50px;border:2px #9999FF dashed;"
-                                   onclick="document.getElementById('input_pre').value=document.getElementById('premeal_1').value">
-                            <!--<h4 class="card-title text-center mb-0">商品1</h4> -->
+                                    style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                    onclick="document.getElementById('pre').value=document.getElementById('premeal_1').value+'、'+document.getElementById('pre').value">
                         </div>
                     </div>
+                </td>
+                <td>
                     <div class="card">
                         <div class="card-body">
                             <input type="button" id="premeal_2" value="凱薩沙拉"
-                                   style="width:300px;height:50px;border:2px #9999FF dashed;"
-                                   onclick="document.getElementById('input_pre').value=document.getElementById('premeal_2').value">
-                            <!-- <h4 class="card-title text-center mb-0">凱薩沙拉</h4> -->
+                                    style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                    onclick="document.getElementById('pre').value=document.getElementById('premeal_2').value+'、'+document.getElementById('pre').value">
                         </div>
                     </div>
+                </td>
+                <td>
                     <div class="card">
                         <div class="card-body">
                             <input type="button" id="premeal_3" value="綠胡椒燻鴨胸溫沙拉"
-                                   style="width:300px;height:50px;border:2px #9999FF dashed;"
-                                   onclick="document.getElementById('input_pre').value=document.getElementById('premeal_3').value">
-                            <!-- <h4 class="card-title text-center mb-0">商品3</h4>-->
+                                    style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                    onclick="document.getElementById('pre').value=document.getElementById('premeal_3').value+'、'+document.getElementById('pre').value">
                         </div>
                     </div>
+                </td>
+                <td>
                     <div class="card">
                         <div class="card-body">
                             <input type="button" id="premeal_4" value="香煎干貝杏鮑菇"
-                                   style="width:300px;height:50px;border:2px #9999FF dashed;"
-                                   onclick="document.getElementById('input_pre').value=document.getElementById('premeal_4').value">
+                                    style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                    onclick="document.getElementById('pre').value=document.getElementById('premeal_4').value+'、'+document.getElementById('pre').value">
                         </div>
                     </div>
+                </td>
+            </tr>
+            <tr>
+                <td>                        
                     <div class="card">
                         <div class="card-body">
                             <input type="button" id="premeal_5" value="優格鮮蝦時蔬"
-                                   style="width:300px;height:50px;border:2px #9999FF dashed;"
-                                   onclick="document.getElementById('input_pre').value=document.getElementById('premeal_5').value">
+                                    style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                    onclick="document.getElementById('pre').value=document.getElementById('premeal_5').value+'、'+document.getElementById('pre').value">
                         </div>
                     </div>
-
-
+                </td>
+                <td>
                     <div class="card">
                         <div class="card-body">
                             <input type="button" id="premeal_6" value="洋芋田園沙拉"
-                                   style="width:300px;height:50px;border:2px #9999FF dashed;"
-                                   onclick="document.getElementById('input_pre').value=document.getElementById('premeal_6').value">
+                                    style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                    onclick="document.getElementById('pre').value=document.getElementById('premeal_6').value+'、'+document.getElementById('pre').value">
                         </div>
                     </div>
-
-                </div>
-            </div>
-
-        </div>
-
-    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 
-    <div class="tab-pane fade" id="content_1" role="tabpanel" aria-labelledby="nav_1">
-
-        <!-- 瀑布流 -->
-        <div class="mt-5">
-            <h1 class="mt-3 mb-3 text-center">主餐</h1>
-            <div class="card-columns">
-
-                <div class="card">
-                    <div class="card-body">
-                        <input type="button" id="mainmeal_1" value="嫩煎干貝佐松露菲力"
-                               style="width:300px;height:50px;border:2px #FF9696 dashed;"
-                               onclick="document.getElementById('input_main').value=document.getElementById('mainmeal_1').value">
-                        <!--<h4 class="card-title text-center mb-0">商品1</h4> -->
+    <div class="tab-pane" id="contact_1">
+        <h1 class="mt-3 mb-3 text-center">湯</h1>
+        <table>
+            <tr>
+                <td>
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="button" id="soup_1" value="大蒜馬鈴薯湯"
+                                    style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                    onclick="document.getElementById('soup').value=document.getElementById('soup_1').value+'、'+document.getElementById('soup').value">
+                        </div>
                     </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <input type="button" id="mainmeal_2" value="香橙鴨胸佐開心果羊排"
-                               style="width:300px;height:50px;border:2px #FF9696 dashed;"
-                               onclick="document.getElementById('input_main').value=document.getElementById('mainmeal_2').value">
-                        <!-- <h4 class="card-title text-center mb-0">凱薩沙拉</h4> -->
+                </td>
+                <td>
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="button" id="soup_2" value="義式蔬菜湯"
+                                    style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                    onclick="document.getElementById('soup').value=document.getElementById('soup_2').value+'、'+document.getElementById('soup').value">
+                        </div>
                     </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <input type="button" id="premeal_3" value="綠胡椒燻鴨胸溫沙拉"
-                               style="width:300px;height:50px;border:2px #9999FF dashed;"
-                               onclick="document.getElementById('input_pre').value=document.getElementById('premeal_3').value">
-                        <!-- <h4 class="card-title text-center mb-0">商品3</h4>-->
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <input type="button" id="premeal_4" value="香煎干貝杏鮑菇"
-                               style="width:300px;height:50px;border:2px #9999FF dashed;"
-                               onclick="document.getElementById('input_pre').value=document.getElementById('premeal_4').value">
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title text-center mb-0">商品5</h4>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title text-center mb-0">商品6</h4>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title text-center mb-0">商品7</h4>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title text-center mb-0">商品8</h4>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title text-center mb-0">商品9</h4>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
+                </td>
+                <td style='width:10%'></td><td style='width:10%'></td>
+            </tr>
+        </table>
     </div>
 
-    </div>
+    <div class="tab-pane" id="contact_2">
+        <h1 class="mt-3 mb-3 text-center">副菜</h1>
+        <table>
+            <tr>
+                <td>
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="button" id="dish_1" value="松露起司通心粉"
+                                    style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                    onclick="document.getElementById('dish').value=document.getElementById('dish_1').value+'、'+document.getElementById('dish').value">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="button" id="dish_2" value="海鹽醬烤茭白筍"
+                                style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                onclick="document.getElementById('dish').value=document.getElementById('dish_2').value+'、'+document.getElementById('dish').value">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="button" id="dish_3" value="香料烤馬鈴薯"
+                                style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                onclick="document.getElementById('dish').value=document.getElementById('dish_3').value+'、'+document.getElementById('dish').value">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="button" id="dish_4" value="奶油起司焗烤馬鈴薯"
+                                style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                onclick="document.getElementById('dish').value=document.getElementById('dish_4').value+'、'+document.getElementById('dish').value">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 
-    <div class="tab-pane fade" id="contact_2" role="tabpanel" aria-labelledby="nav_2">
-        <input type="button" value="菜" style="width:120px;height:40px;font-size:20px;">
+    <div class="tab-pane" id="contact_3">
+        <h1 class="mt-3 mb-3 text-center">主菜</h1>
+        <table>
+            <tr>
+                <td>
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="button" id="main_1" value="香烤豬大排"
+                                    style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                    onclick="document.getElementById('main').value=document.getElementById('main_1').value+'、'+document.getElementById('main').value">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="button" id="main_2" value="嫩煎干貝佐松露菲力"
+                                    style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                    onclick="document.getElementById('main').value=document.getElementById('main_2').value+'、'+document.getElementById('main').value">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="button" id="main_3" value="香橙鴨胸佐開心果羊排"
+                                    style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                    onclick="document.getElementById('main').value=document.getElementById('main_3').value+'、'+document.getElementById('main').value">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="button" id="main_4" value="乾式熟成紐約客"
+                                    style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                    onclick="document.getElementById('main').value=document.getElementById('main_4').value+'、'+document.getElementById('main').value">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
-    <div class="tab-pane fade" id="contact_3" role="tabpanel" aria-labelledby="nav_3">
-        海鮮冷盤
+
+    <div class="tab-pane" id="contact_4">
+        <h1 class="mt-3 mb-3 text-center">蔬菜</h1>
+        <table>
+            <tr>
+                <td>
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="button" id="garnishes_1" value="義式烤時蔬"
+                                style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                onclick="document.getElementById('garnishes').value=document.getElementById('garnishes_1').value+'、'+document.getElementById('garnishes').value">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="button" id="garnishes_2" value="番茄烤三色豆"
+                                style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                onclick="document.getElementById('garnishes').value=document.getElementById('garnishes_2').value+'、'+document.getElementById('garnishes').value">
+                        </div>
+                    </div>
+                </td>
+                <td style='width:10%'></td><td style='width:10%'></td>
+            </tr>
+        </table>
     </div>
-    <div class="tab-pane fade" id="contact_4" role="tabpanel" aria-labelledby="nav_4">
-        湯類
+
+    <div class="tab-pane" id="contact_5" >
+        <h1 class="mt-3 mb-3 text-center">甜點/冰淇淋</h1>
+        <table>
+            <tr>
+                <td>
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="button" id="dessert_1" value="巧克力冰淇淋"
+                                style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                onclick="document.getElementById('dessert').value=document.getElementById('dessert_1').value+'、'+document.getElementById('dessert').value">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="button" id="dessert_2" value="香草冰淇淋"
+                                style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                onclick="document.getElementById('dessert').value=document.getElementById('dessert_2').value+'、'+document.getElementById('dessert').value">
+                            <!--<h4 class="card-title text-center mb-0">商品1</h4> -->
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="button" id="dessert_3" value="焦糖烤布雷"
+                                style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                onclick="document.getElementById('dessert').value=document.getElementById('dessert_3').value+'、'+document.getElementById('dessert').value">
+                            <!--<h4 class="card-title text-center mb-0">商品1</h4> -->
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="button" id="dessert_4" value="義式提拉米蘇"
+                                style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                onclick="document.getElementById('dessert').value=document.getElementById('dessert_4').value+'、'+document.getElementById('dessert').value">
+                            <!--<h4 class="card-title text-center mb-0">商品1</h4> -->
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
+
+    <div class="tab-pane" id="contact_6">
+        <h1 class="mt-3 mb-3 text-center">咖啡/茶</h1>
+        <table>
+            <tr>
+                <td>
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="button" id="drink_1" value="美式咖啡"
+                                style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                onclick="document.getElementById('drink').value=document.getElementById('drink_1').value+'、'+document.getElementById('drink').value">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="button" id="drink_2" value="義式咖啡"
+                                style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                onclick="document.getElementById('drink').value=document.getElementById('drink_2').value+'、'+document.getElementById('drink').value">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="button" id="drink_3" value="黑森林莓果茶"
+                                style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                onclick="document.getElementById('drink').value=document.getElementById('drink_3').value+'、'+document.getElementById('drink').value">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="button" id="drink_4" value="大堤嶺紅茶"
+                                style="width:300px;height:50px;border:2px #FF9696 dashed;"
+                                onclick="document.getElementById('drink').value=document.getElementById('drink_4').value+'、'+document.getElementById('drink').value">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
-    </div>
+    
+</div>
+<br><br><br><br>
+<table>
     <thead>
     <tr>
-        <th colspan="2">請輸入欲新增訂單之餐點內容</th>
+        <th colspan="2">請確認新增訂單之餐點內容</th>
     </tr>
     </thead>
     <tbody class="form_body">
     <tr>
-        <td>前餐:<input type="text" id="input_pre"></td>
-        <td>湯品:<input type="text"></td>
+        <td>前餐: &ensp; <input type="text" id="pre"></td>
+        <td>湯品: &ensp; <input type="text" id="soup"></td>
     </tr>
 
     <tr>
-        <td>主餐:<input type="text" id="input_main"></td>
-        <td>主菜:<input type="text"></td>
+        <td>副菜: &ensp; <input type="text" id="dish"></td>
+        <td>主菜: &ensp; <input type="text" id="main"></td>
     </tr>
 
     <tr>
-        <td>蔬菜:<input type="text"></td>
-        <td>甜點/冰淇淋:<input type="text"></td>
+        <td>蔬菜: &ensp; <input type="text" id="garnishes"></td>
+        <td>甜點/冰淇淋: &ensp; <input type="text" id="dessert"></td>
     </tr>
     <tr>
-        <td colspan="2">咖啡/茶:<input type="text"></td>
+        <td colspan="2">咖啡/茶: &ensp; <input type="text" id="drink"></td>
     </tr>
     </tbody>
 </table>
+
 <br/>
 <br/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
