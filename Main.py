@@ -51,9 +51,26 @@ def allOrder():  # 設置連接資料庫參數
     return jsonify(data)  # 回傳JSON資料
 
 
+# 資料findOne
+@app.route('/findThis', methods=["GET", "POST"])
+def find_this():  # 更新doc到db collection
+    if request.method == "POST":
+        data = request.form
+    if request.method == "GET":
+        data = request.arg
+        # 如果獲取的資料為空
+    print("request = ", data)
+    try:
+        rDate = myMgDB.updateOne(data)
+        return rDate
+    except Exception as e:
+        print(e)
+        return {'message': "error!", "action": "UpdateOne"}
+
+
 # 資料insert
 @app.route('/insertAnOrder', methods=["GET", "POST"])
-def insertAnOrder():  # 新增doc到db collection
+def insert_an_order():  # 新增doc到db collection
     # 由於POST、GET獲取資料的方式不同，需要使用if語句進行判斷
     if request.method == "POST":
         name = request.form.get("name")
@@ -71,9 +88,10 @@ def insertAnOrder():  # 新增doc到db collection
         return {'message': "success!", "data": data}
 
 
+#   delete
 # 刪除單筆紀錄
 @app.route('/delele1', methods=["GET", "POST"])
-def delete1():
+def delete_by_idKey():
     idToDel = ""
     if request.method == "POST":
         idToDel = request.form.get("idKey")
@@ -88,8 +106,9 @@ def delete1():
         return {'message': "error!", "action": "delete"}
 
 
-# 資料Update
-@app.route('/Update', methods=["GET", "POST"])
+#
+# 資料UpdateOne
+@app.route('/Update1', methods=["GET", "POST"])
 def UpdateOne():  # 更新doc到db collection
     print(request.form)
     print(request.args)
