@@ -4,6 +4,7 @@ import myMongoDB as myMgDB
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 
+
 # 網頁路徑
 # modify.html
 @app.route('/modify')
@@ -40,6 +41,7 @@ def indePage():
 def root():
     return render_template('index.html')
 
+
 # -----資料庫功能------
 # 資料find
 @app.route('/allOrder/'
@@ -47,6 +49,7 @@ def root():
 def allOrder():  # 設置連接資料庫參數
     data = myMgDB.findAllOrder()
     return jsonify(data)  # 回傳JSON資料
+
 
 # 資料insert
 @app.route('/insertAnOrder', methods=["GET", "POST"])
@@ -59,35 +62,44 @@ def insertAnOrder():  # 新增doc到db collection
         name = request.args.get("name")
         data = request.arg
         # 如果獲取的資料為空
-    print("request = ",data)
+    print("request = ", data)
 
     if len(name) == 0:
         return {'message': "error!"}
     else:
         myMgDB.insert(data)
-        return {'message': "success!", "data":data}
+        return {'message': "success!", "data": data}
+
+
 # 刪除單筆紀錄
-@app.route('/delele1',methods=["GET", "POST"])
+@app.route('/delele1', methods=["GET", "POST"])
 def delete1():
-    idToDel=""
+    idToDel = ""
     if request.method == "POST":
         idToDel = request.form.get("idKey")
     if request.method == "GET":
         idToDel = request.args.get("idKey")
     print(idToDel)
     try:
-        myMgDB.delByID(idToDel)
-        return {'message':"success!","action":"delete"}
+        myMgDB.delByID(idToDel)  # 刪除該資料
+        return {'message': "success!", "action": "delete"}
     except Exception as e:
         print(e)
-        return {'message': "error!","action":"delete"}
+        return {'message': "error!", "action": "delete"}
+
 
 # 資料Update
 @app.route('/Update', methods=["GET", "POST"])
 def UpdateOne():  # 更新doc到db collection
-    print()
-
-    return ""
+    print(request.form)
+    print(request.args)
+    try:
+        # 這邊要調用myMongoDB.py的相關方法
+        # myMgDB.updateOne() #需要參數 request的json之類的
+        return {'message': "success!", "action": "UpdateOne"}
+    except Exception as e:
+        print(e)
+        return {'message': "error!", "action": "UpdateOne"}
 
 
 # (以下參考用)
@@ -115,6 +127,7 @@ def submit():
         myMgDB.insert({'name': name, 'age': age})
         return {'message': "success!", 'name': name, 'age': age}
     # (以上為參考測試用)
+
 
 if __name__ == "__main__":
     app.config['TEMPLATES_AUTO_RELOAD'] = True  # 當template有修改會自動更新
