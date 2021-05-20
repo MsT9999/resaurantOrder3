@@ -61,7 +61,7 @@ def find_this():  # 更新doc到db collection
         # 如果獲取的資料為空
     print("request = ", data)
     try:
-        rDate = myMgDB.updateOne(data)
+        rDate = myMgDB.findOne(data)
         return rDate
     except Exception as e:
         print(e)
