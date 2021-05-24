@@ -64,7 +64,7 @@ def find_this():  # 更新doc到db collection
         return rDate
     except Exception as e:
         print(e)
-        return {'message': "error!", "action": "UpdateOne"}
+        return {'message': "error!", "action": "findOne"}
 
 
 # 資料insert
