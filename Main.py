@@ -53,15 +53,15 @@ def allOrder():  # 設置連接資料庫參數
 
 # 資料findOne
 @app.route('/findThis', methods=["GET", "POST"])
-def find_this():  # 更新doc到db collection
+def find_this():
     if request.method == "POST":
         data = request.form
     if request.method == "GET":
         data = request.arg
     print("request = ", data)
     try:
-        rDate = myMgDB.findOne(data)
-        return rDate
+        r_date = myMgDB.findOne(data)
+        return r_date
     except Exception as e:
         print(e)
         return {'message': "error!", "action": "findOne"}
