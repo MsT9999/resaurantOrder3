@@ -14,6 +14,7 @@ function view() {       //view() function
                 "<div class='guest col-md-6 offset-md-3 border-warning border-4'>" +
                 "<div class='list_head border border-info'>訂單編號: " + data[item]._id+
                 " <button class='btn btn-outline-danger btn-sm' onclick=\"control('" + data[item]._id + "');\">刪除此訂單</button>"+
+                " <button class='btn btn-outline-danger btn-sm' onclick=\"control('" + data[item]._id + "');\">刪除此訂單</button>"+
                 "</div>"+ "<ul>"+
                 "<li>時間:" + data[item].date +" "+ data[item].time +
                 "<li>客人姓名: " + data[item].data.name +
