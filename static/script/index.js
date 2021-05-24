@@ -16,8 +16,8 @@ function view() {       //view() function
                 " <button class='btn btn-outline-danger btn-sm' onclick=\"control('" + data[item]._id + "');\">刪除此訂單</button>"+
                 "</div>"+ "<ul>"+
                 "<li>時間:" + data[item].date +" "+ data[item].time +
-                "<li>客人姓名: " + data[item].data.Customer_name +
-                "<li>客人電話: " + data[item].data.telephone +
+                "<li>客人姓名: " + data[item].data.name +
+                "<li>客人電話: " + data[item].data.phoneNumber +
                     "<li>是否為VIP: " + data[item].data.VIP +
                 "<li>餐點內容 "+
                     "<ul>"+
