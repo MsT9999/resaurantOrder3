@@ -5,21 +5,29 @@
     <title>點餐系統</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/pagination.css') }}">
-
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 <table>
     <tr>
         <td style="width:5%"></td>
         <td style="width:5%"></td>
-        <td style="width:24%"><h1>刪除訂單</h1></td>
+        <td style="width:24%"><h1>修改訂單</h1></td>
+        <br>
         <td style="width:5%"></td>
         <td style="width:5%">
             <button type="submit" value="modify" onclick="location.href='index'" class="modify_class">修改</button>
+             <br> <br> <br>
         </td>
+
     </tr>
 </table>
+ <hr>
 <div class="information">請輸入欲修改訂單之資料(部分即可)</div>
+<select id="order"></select>
+<td><button class="btn btn-outline-success btn-lg" onclick="test()">選擇</button>
+</td>
+
 <table>
     <thead>
     <tr>
@@ -28,13 +36,13 @@
     </thead>
     <tbody class="form_body">
     <tr>
-        <td>客人姓名:<input type="text"></td>
-        <td>客人電話:<input type="text"></td>
+        <td>客人姓名:<input type="text"id="name"></td>
+        <td>客人電話:<input type="text"id="phone"></td>
     </tr>
 
     <tr>
-        <td>是否為VIP:<input type="text"></td>
-        <td>桌號:<input type="text"></td>
+        <td>是否為VIP:<input type="text" id="VIP"></td>
+        <td>桌號:<input type="text" id="tableNumber"></td>
     </tr>
     </tbody>
 </table>
@@ -48,21 +56,21 @@
     </thead>
     <tbody class="form_body">
     <tr>
-        <td>頭盤:<input type="text"></td>
-        <td>湯品:<input type="text"></td>
+        <td>前餐:<input type="text"id="premeal"></td>
+        <td>湯品:<input type="text"id="soup"></td>
     </tr>
 
     <tr>
-        <td>副菜:<input type="text"></td>
-        <td>主菜:<input type="text"></td>
+        <td>副菜:<input type="text" id="dish"></td>
+        <td>主菜:<input type="text"id="main"></td>
     </tr>
 
     <tr>
-        <td>蔬菜:<input type="text"></td>
-        <td>甜點/冰淇淋:<input type="text"></td>
+        <td>蔬菜:<input type="text" id="garnishes"></td>
+        <td>甜點/冰淇淋:<input type="text" id="dessert"></td>
     </tr>
     <tr>
-        <td colspan="2">咖啡/茶:<input type="text"></td>
+        <td colspan="2">咖啡/飲料:<input type="text" id="drink"></td>
     </tr>
     </tbody>
 </table>
@@ -116,5 +124,35 @@
     </tr>
     </tbody>
 </table>
+<script type="text/javascript">
+const jsonUrl = "/allOrder/";
+function test(){
+        document.getElementById("order").innerHTML='';
+        var jsonobj = null  //空資料
+         var list;
+         var counts;counts=0;
+        $.getJSON(jsonUrl,function (r) {   //接受Main.py的資料庫回傳值
+        jsonobj = r;
+        console.log("json:",jsonobj);//確認json
+        data = jsonobj;
+         for (var item in data) {
+         console.log("id:",data[item]._id);
+          list =  data[item].data._id;
+          console.log("list:",list);
+        }
+       });
+        counts=list.length;
+         var i;
+         for (i=0;i < counts; i++) {
+         document.order.options[i] = new Option(list[i],i); }
+        }
+
+
+//$(function(){
+ //   test();
+ //     $('#order').append('<option value="'+ datas +'">' + '</option>');
+//});
+
+</script>
 </body>
 </html>

@@ -29,7 +29,7 @@
         <td style="width:24%"><h1>訂單列表</h1></td>
         <td></td>
         <td>
-            <button type="button" value="insert" onclick="location.href='insert'" class="insert_class">新增訂單
+            <button type="button" value="insert" onclick="location.href='insertV2'" class="insert_class">新增訂單
             </button>
         </td>
 <!--        <td>-->
@@ -63,7 +63,6 @@ function view() {       //view() function
                 "<div class='row'>"+
                 "<div class='guest col-md-6 offset-md-3 border-warning border-4'>" +
                 "<div class='list_head border border-info'>訂單編號: " + data[item]._id+
-                " <button class='btn btn-outline-danger btn-sm' onclick=\"control('" + data[item]._id + "');\">刪除此訂單</button>"+
                 " <button class='btn btn-outline-danger btn-sm' onclick=\"control('" + data[item]._id + "');\">刪除此訂單</button>"+
                 "</div>"+ "<ul>"+
                 "<li>時間:" + data[item].date +" "+ data[item].time +
@@ -105,6 +104,7 @@ function control(val) {
     });
     view();
 }
+
 </script>
 </body>
 </html>
