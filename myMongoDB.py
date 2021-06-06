@@ -1,6 +1,3 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-# 後端連接
 import datetime
 import pymongo
 
@@ -112,8 +109,10 @@ def updateOne(myquery, values) -> object:
         mycoll = db.order
         newValues = {"$set": values}
         mycoll.update_one(myquery, newValues)
+        print("you are right！")
         print("already updated")
     except Exception as e:
+        print("you are good！！")
         print(e)
 
 
