@@ -1,153 +1,123 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <title>點餐系統</title>
     <!-- CSS   -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}"/>
     <!--jQuery-->
     <script type="text/javascript" src="./static/script/jquery.min.js"></script>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
-        crossorigin="anonymous"></script>
-    <!--  JS Code  -->
-    <!--    <script type="text/javascript" src="./static/script/index.js"></script>-->
+            integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+            crossorigin="anonymous"></script>
+     <!--  JS Code  -->
+<!--    <script type="text/javascript" src="./static/script/index.js"></script>-->
 </head>
-
 <body>
-    <table>
-        <tr>
-            <td>
-                <button class="btn btn-outline-success btn-lg" onclick="view()">更新資料</button>
-            </td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td style="width:24%">
-                <h1>訂單列表</h1>
-            </td>
-            <td></td>
-            <td>
-                <button type="button" value="insert" style="width:120px;height:40px;font-size:20px;"
-                    onclick="location.href='insertV2'" class="insert_class">新增訂單
-                </button>
-            </td>
-            <!--        <td>-->
-            <!--            <button id="BtnV1" class="btn btn-outline-info" onclick="location.href='insertV2'">新增V2</button>-->
-            <!--        </td>-->
-            <td>
-                <button type="button" value="delete" style="width:150px;height:40px;font-size:20px;"
-                    onclick="location.href='delete'" class="delete_class">刪除指定訂單
-                </button>
-            </td>
-            <td>
-                <button type="button" value="search" style="width:150px;height:40px;font-size:20px;"
-                    onclick="location.href='modify'" class="modify_class">修改指定訂單
-                </button>
-            </td>
-        </tr>
-    </table>
-    <div class="container" id="history"></div>
-    <script type="text/javascript">
-        //放在index.html內
-        const jsonUrl = "/allOrder/";
-        function view() {       //view() function
-            document.getElementById("history").innerHTML = '';
-            var jsonobj = null  //空資料
-            $.getJSON(jsonUrl, function (r) {   //接受Main.py的資料庫回傳值
-                jsonobj = r;
-                console.log("json:", jsonobj);//確認json
-                var data = jsonobj;
-                for (var item in data) {
-                    var empty = {};
-                    var meals = "<ul>"
-                    if (JSON.stringify(data[item].data.Meals.pre) != undefined)
-                        meals = meals + "<li> 前餐: " + JSON.stringify(data[item].data.Meals.pre);
-                    if (JSON.stringify(data[item].data.Meals.soup) != undefined)
-                        meals = meals + "<li> 湯品: " + JSON.stringify(data[item].data.Meals.soup);
-                    if (JSON.stringify(data[item].data.Meals.dish) != undefined)
-                        meals = meals + "<li> 副菜: " + JSON.stringify(data[item].data.Meals.dish);
-                    if (JSON.stringify(data[item].data.Meals.main) != undefined)
-                        meals = meals + "<li> 主菜: " + JSON.stringify(data[item].data.Meals.main);
-                    if (JSON.stringify(data[item].data.Meals.garnishes) != undefined)
-                        meals = meals + "<li> 蔬菜: " + JSON.stringify(data[item].data.Meals.garnishes);
-                    if (JSON.stringify(data[item].data.Meals.dessert) != undefined)
-                        meals = meals + "<li> 甜點: " + JSON.stringify(data[item].data.Meals.dessert);
-                    if (JSON.stringify(data[item].data.Meals.drink) != undefined)
-                        meals = meals + "<li> 飲品: " + JSON.stringify(data[item].data.Meals.drink);
-                    meals = meals + "</ul>"
+<table>
+    <tr>
+        <td>
+            <button class="btn btn-outline-success btn-lg" onclick="view()">更新資料</button>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="width:24%"><h1>訂單列表</h1></td>
+        <td></td>
+        <td>
+            <button type="button" value="insert" style="width:120px;height:40px;font-size:20px;" onclick="location.href='insertV2'" class="insert_class">新增訂單
+            </button>
+        </td>
+    </tr>
+</table>
+<div class="container" id="history"></div>
+<script type="text/javascript">
+//放在index.html內
+const jsonUrl = "/allOrder/";
 
-                    // console.log("type of telephone", typeof (data[item].data.phoneNumber));
-                    // console.log("type of VIP", typeof (data[item].data.VIP));
-                    // console.log("type of table number", typeof (data[item].data.Table_number));
-
-                    var phoneNumber = " "
-                    if ((data[item].data.phoneNumber != "") && (data[item].data.phoneNumber != undefined))
-                        phoneNumber = "<li>客人電話: " + data[item].data.phoneNumber;
-
-                    var VIP = " "
-                    if ((data[item].data.VIP != "") && (data[item].data.VIP != undefined))
-                        VIP = "<li>VIP: " + data[item].data.VIP;
-
-                    var table = " "
-                    if ((data[item].data.Table_number != "") && (data[item].data.Table_number != undefined) && (data[item].data.Table_number != 0))
-                        table = "<li>桌號: " + data[item].data.Table_number;
-
-
-                    // console.log("--type of telephone", typeof (phoneNumber));
-                    // console.log("--type of VIP", typeof (VIP));
-                    // console.log("--type of table number", typeof (table));
-
-                    let content =
-                        "<div class='row' id='" + data[item]._id + "''>" +
-                        "<div class='guest col-md-6 offset-md-3 border-warning border-4'>" +
-                        "<div class='list_head border border-info'>訂單編號: " + data[item]._id +
-                        " <button class='btn btn-outline-primary btn-sm' onclick=\"modifyThis('" + data[item]._id + "'); location.href='modify' \">修改此訂單</button>" +
-                        " <button class='btn btn-outline-danger btn-sm' onclick=\"deleteThis('" + data[item]._id + "');\">刪除此訂單</button>" +
-                        "</div>" + "<ul>" +
-                        "<li>時間:" + data[item].date + " " + data[item].time +
-                        "<li>客人姓名: " + data[item].data.name +
-                        phoneNumber +
-                        VIP +
-                        "<li>餐點內容: " + meals +
-                        table +
-                        "</ul></div></div>";
-                    $("#history").append(content);
-                }
-            });
+//window.onload = view();
+function view() {       //view() function
+    document.getElementById("history").innerHTML='';
+    var jsonobj = null  //空資料
+    $.getJSON(jsonUrl,function (r) {   //接受Main.py的資料庫回傳值
+        jsonobj = r;
+        console.log("json:",jsonobj);//確認json
+        var data = jsonobj;
+        for (var item in data) {
+            var empty={};
+            var meals = "<ul>"
+            if(JSON.stringify(data[item].data.Meals.pre) != undefined)
+                meals = meals + "<li> 前餐: " + JSON.stringify(data[item].data.Meals.pre);
+            if(JSON.stringify(data[item].data.Meals.soup) != undefined)
+                meals = meals + "<li> 湯品: " + JSON.stringify(data[item].data.Meals.soup);
+            if(JSON.stringify(data[item].data.Meals.dish) != undefined)
+                meals = meals + "<li> 副菜: " + JSON.stringify(data[item].data.Meals.dish);
+            if(JSON.stringify(data[item].data.Meals.main) != undefined)
+                meals = meals + "<li> 主菜: " + JSON.stringify(data[item].data.Meals.main);
+            if(JSON.stringify(data[item].data.Meals.garnishes) != undefined)
+                meals = meals + "<li> 蔬菜: " + JSON.stringify(data[item].data.Meals.garnishes);
+            if(JSON.stringify(data[item].data.Meals.dessert) != undefined)
+                meals = meals + "<li> 甜點: " + JSON.stringify(data[item].data.Meals.dessert);
+            if(JSON.stringify(data[item].data.Meals.drink) != undefined)
+                meals = meals + "<li> 飲品: " + JSON.stringify(data[item].data.Meals.drink);
+            meals = meals+"</ul>"
+            
+            var phoneNumber = " "
+            if((data[item].data.phoneNumber != "") && (data[item].data.phoneNumber != undefined))
+                phoneNumber = "<li>客人電話: " +data[item].data.phoneNumber;
+            
+            var VIP = " "
+            if((data[item].data.VIP != "") && (data[item].data.VIP != undefined))
+                VIP = "<li>VIP: " +data[item].data.VIP;
+            
+            var table = " "
+            if((data[item].data.Table_number != "") && (data[item].data.Table_number != undefined) && (data[item].data.Table_number != 0))
+                table = "<li>桌號: "+ data[item].data.Table_number;
+            let content =
+                "<div class='row'>"+
+                "<div class='guest col-md-6 offset-md-3 border-warning border-4'>" +
+                "<div class='list_head border border-info'>訂單編號: " + data[item]._id+
+                " <button class='btn btn-outline-primary btn-sm' onclick=\"modifyThis('" + data[item]._id + "'); location.href='modify' \">修改此訂單</button>"+
+                " <button class='btn btn-outline-danger btn-sm' onclick=\"deleteThis('" + data[item]._id + "');\">刪除此訂單</button>"+
+                "</div>"+ "<ul>"+
+                "<li>時間:" + data[item].date +" "+ data[item].time +
+                "<li>客人姓名: " + data[item].data.name +
+                phoneNumber +
+                VIP +
+                "<li>餐點內容: "+ meals+
+                table +
+                "</ul></div></div>";
+            $("#history").append(content);
         }
-        function deleteThis(val) {
-            console.log("準備刪除", val);
-            var contentRow = document.getElementById(val);
-            contentRow.innerHTML = "正在刪除";
-            console.log(contentRow);
-            $.ajax({
-                url: "/delele1", /*資料(idKey)提交到delele1處*/
-                type: "POST", /*採用POST方法提交*/
-                data: {
-                    "idKey": val, "action": "going to Delete"
-                }, /*提交的資料（json格式）*/
-                /*result為後端函數返回的json*/
-                success: function (result) {
-                    if (result.message == "success!") {
-                        alert(result.message, result.data)
-                    }
-                    else {
-                        alert(result.message)
-                    }
-                }
-            });
-            view();
+    });
+}
+function deleteThis(val) {
+    console.log("準備刪除",val);
+    $.ajax({
+        url: "/delele1", /*資料(idKey)提交到delele1處*/
+        type: "POST", /*採用POST方法提交*/
+        data: { "idKey": val,"action":"going to Delete"
+        }, /*提交的資料（json格式）*/
+    /*result為後端函數返回的json*/
+        success: function (result) {
+            if (result.message == "success!") {
+                alert(result.message,result.data)
+            }
+            else {
+                alert(result.message)
+            }
         }
-        function modifyThis(val) {
-            sessionStorage.setItem('_id', val);
-        }
-    </script>
+    });
+    view();
+}
+
+function modifyThis(val){
+    sessionStorage.setItem('_id', val);
+}
+</script>
 </body>
-
 </html>
