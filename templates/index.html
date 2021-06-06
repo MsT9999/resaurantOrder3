@@ -57,30 +57,58 @@ function view() {       //view() function
         console.log("json:",jsonobj);//確認json
         var data = jsonobj;
         for (var item in data) {
-            console.log("id:",data[item]._id);
-            console.log("name:",data[item].data.Customer_name);
+            var empty={};
+            var meals = "<ul>"
+            if(JSON.stringify(data[item].data.Meals.pre) != undefined)
+                meals = meals + "<li> 前餐: " + JSON.stringify(data[item].data.Meals.pre);
+            if(JSON.stringify(data[item].data.Meals.soup) != undefined)
+                meals = meals + "<li> 湯品: " + JSON.stringify(data[item].data.Meals.soup);
+            if(JSON.stringify(data[item].data.Meals.dish) != undefined)
+                meals = meals + "<li> 副菜: " + JSON.stringify(data[item].data.Meals.dish);
+            if(JSON.stringify(data[item].data.Meals.main) != undefined)
+                meals = meals + "<li> 主菜: " + JSON.stringify(data[item].data.Meals.main);
+            if(JSON.stringify(data[item].data.Meals.garnishes) != undefined)
+                meals = meals + "<li> 蔬菜: " + JSON.stringify(data[item].data.Meals.garnishes);
+            if(JSON.stringify(data[item].data.Meals.dessert) != undefined)
+                meals = meals + "<li> 甜點: " + JSON.stringify(data[item].data.Meals.dessert);
+            if(JSON.stringify(data[item].data.Meals.drink) != undefined)
+                meals = meals + "<li> 飲品: " + JSON.stringify(data[item].data.Meals.drink);
+            meals = meals+"</ul>"
+            
+            console.log("type of telephone", typeof(data[item].data.phoneNumber));
+            console.log("type of VIP", typeof(data[item].data.VIP));
+            console.log("type of table number", typeof(data[item].data.Table_number));
+
+            var phoneNumber = " "
+            if((data[item].data.phoneNumber != "") && (data[item].data.phoneNumber != undefined))
+                phoneNumber = "<li>客人電話: " +data[item].data.phoneNumber;
+            
+            var VIP = " "
+            if((data[item].data.VIP != "") && (data[item].data.VIP != undefined))
+                VIP = "<li>VIP: " +data[item].data.VIP;
+            
+            var table = " "
+            if((data[item].data.Table_number != "") && (data[item].data.Table_number != undefined) && (data[item].data.Table_number != 0))
+                table = "<li>桌號: "+ data[item].data.Table_number;
+            
+            
+            console.log("--type of telephone", typeof(phoneNumber));
+            console.log("--type of VIP", typeof(VIP));
+            console.log("--type of table number", typeof(table));
+
             let content =
                 "<div class='row'>"+
                 "<div class='guest col-md-6 offset-md-3 border-warning border-4'>" +
                 "<div class='list_head border border-info'>訂單編號: " + data[item]._id+
-                " <button class='btn btn-outline-primary btn-sm' onclick=\"modifyThis('" + data[item]._id + "');\">修改此訂單</button>"+
+                " <button class='btn btn-outline-primary btn-sm' onclick=\"modifyThis('" + data[item]._id + "'); location.href='modify' \">修改此訂單</button>"+
                 " <button class='btn btn-outline-danger btn-sm' onclick=\"deleteThis('" + data[item]._id + "');\">刪除此訂單</button>"+
                 "</div>"+ "<ul>"+
                 "<li>時間:" + data[item].date +" "+ data[item].time +
                 "<li>客人姓名: " + data[item].data.name +
-                "<li>客人電話: " + data[item].data.phoneNumber +
-                    "<li>是否為VIP: " + data[item].data.VIP +
-                "<li>餐點內容 "+
-                    "<ul>"+
-                        "<li> 前餐: "+ JSON.stringify(data[item].data.Meals.pre)+
-                        "<li> 湯品: "+ JSON.stringify(data[item].data.Meals.soup)+
-                        "<li> 副菜: "+ JSON.stringify(data[item].data.Meals.dish)+
-                        "<li> 主菜: "+ JSON.stringify(data[item].data.Meals.main)+
-                        "<li> 蔬菜: "+ JSON.stringify(data[item].data.Meals.garnishes)+
-                        "<li> 甜點: "+ JSON.stringify(data[item].data.Meals.dessert)+
-                        "<li> 飲品: "+ JSON.stringify(data[item].data.Meals.drink)+
-                    "</ul>"+
-                    "<li>桌號: "+ data[item].data.Table_number+
+                phoneNumber +
+                VIP +
+                "<li>餐點內容: "+ meals+
+                table +
                 "</ul></div></div>";
             $("#history").append(content);
         }
@@ -105,9 +133,9 @@ function deleteThis(val) {
     });
     view();
 }
-function modifyThis(value){
-    console.log("修改",value);
-    window.open('/modify','');
+
+function modifyThis(val){
+    sessionStorage.setItem('_id', val);
 }
 </script>
 </body>
