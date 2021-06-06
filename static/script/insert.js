@@ -41,6 +41,8 @@
         obj['Meals'] = Meals
     } 
 
+    console.log(obj);
+
     $.ajax({
         url: '/insertAn', /*資料提交到insertAnOrder處*/
         type: 'POST', /*採用POST方法提交*/
