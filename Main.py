@@ -43,15 +43,16 @@ def root():
 
 
 # -----資料庫功能------
-# 資料find
+# 全部資料 find All
 @app.route('/allOrder/'
            )  # root之下有allOrder這個路徑 輸入http://127.0.0.1:5000/allOrder/ 就可以看到json資料格式
 def allOrder():  # 設置連接資料庫參數
+    # 使用myMongoDB.py中的findAll方法 find全部資料
     data = myMgDB.findAllOrder()
     return jsonify(data)  # 回傳JSON資料
 
 
-# 資料findOne
+# 資料findOne 尋找單筆資料
 @app.route('/findThis', methods=["GET", "POST"])
 def find_this():
     if request.method == "POST":
@@ -67,7 +68,7 @@ def find_this():
         return {'message': "error!", "action": "findOne"}
 
 
-# 資料insert
+# insert功能 新增單筆紀錄
 @app.route('/insertAn', methods=['GET', 'POST'])
 def insert_an_order():  # 新增doc到db collection
     # 由於POST、GET獲取資料的方式不同，需要使用if語句進行判斷
@@ -80,17 +81,20 @@ def insert_an_order():  # 新增doc到db collection
         data = request.get_json()
         # 如果獲取的資料為空
     if name is None:
+        # 訊息回傳網頁/insertAn路徑  返回值均為json
         return {'message': "error!"}
     else:
+        # 使用 myMongoDb.py中的insert方法 參數為結構json
         myMgDB.insert(data)
+        # 回傳網頁/insertAn路徑 返回值均為json
         return {'message': "success!", "data": data}
 
-
-#   delete
-# 刪除單筆紀錄
+#  delete功能 刪除單筆紀錄
+# app的路由地址"/delele1"即為ajax中定義的url地址，採用POST、GET方法均可提交
 @app.route('/delele1', methods=["GET", "POST"])
 def delete_by_idKey():
     idToDel = ""
+    # 由於POST、GET獲取資料的方式不同，需要使用if語句進行判斷
     if request.method == "POST":
         idToDel = request.form.get("idKey")
     if request.method == "GET":
@@ -104,12 +108,12 @@ def delete_by_idKey():
     except Exception as e:
         print(e)
 
-#
-# 資料UpdateOne
+# 資料修改
+# UpdateOne
 @app.route('/Update1', methods=["GET", "POST"])
 def UpdateOne():  # 更新doc到db collection
-    # print(request.form)
-    # print(request.args)
+    # query為搜尋條件 newValue為修改後的資料內容
+    # 為json格式
     if request.method == "POST":
         myQuery = request.get_json()["query"]
         updateData = request.get_json()["newValue"]
