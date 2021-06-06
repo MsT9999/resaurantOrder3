@@ -78,9 +78,7 @@ function modifyData(){
     var original = sessionStorage.getItem('_id');
     const var_name = ['phoneNumber', 'VIP', 'Table_number', 'pre', 'soup', 'dish', 'main', 'garnishes', 'dessert', 'drink']
     var length = var_name.length
-    var obj = {
-        name: document.querySelector("#name").value
-    };
+    var obj = {};
     var tmp;
     for(var i = 0; i<3; i++){
         tmp = document.querySelector("#"+var_name[i])
@@ -109,11 +107,7 @@ function modifyData(){
         if((tmp != null) && (tmp.value != "")){
             var str = tmp.value;
             str = str.replace(/\"/g, "");
-            if(str[str.length-1]=='、')
-                Meals[var_name[i]] = str.slice(0, str.length-1);
-            else
-                Meals[var_name[i]] = str;
-            
+            Meals[var_name[i]] = str.slice(0, str.length-1);
         }
     }
 

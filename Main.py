@@ -111,15 +111,17 @@ def UpdateOne():  # 更新doc到db collection
     # print(request.form)
     # print(request.args)
     if request.method == "POST":
-        myQuery = request.form.get("query")
-        updateData = request.form.get("newValue")
+        myQuery = request.get_json()["query"]
+        updateData = request.get_json()["newValue"]
     if request.method == "GET":
-        myQuery = request.args.get("query")
-        updateData = request.form.get("newValue")
+        myQuery = request.get_json()["query"]
+        updateData = request.get_json()["newValue"]
     try:
+        # print("you got a success")
         myMgDB.updateOne(myQuery,updateData)
         return {'message': "success!", "action": "UpdateOne"}
     except Exception as e:
+        # print("you got an error")
         print(e)
         return {'message': "error!", "action": "UpdateOne"}
 
@@ -153,4 +155,5 @@ def submit():
 
 if __name__ == "__main__":
     app.config['TEMPLATES_AUTO_RELOAD'] = True  # 當template有修改會自動更新
+    app.debug = True
     app.run()
