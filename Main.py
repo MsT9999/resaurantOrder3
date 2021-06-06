@@ -130,33 +130,6 @@ def UpdateOne():  # 更新doc到db collection
         return {'message': "error!", "action": "UpdateOne"}
 
 
-# (以下參考用)
-# 前端網頁回傳測試
-@app.route('/test')
-def testP():
-    return render_template('test.html')
-
-
-# app的路由地址"/submit"即為ajax中定義的url地址，採用POST、GET方法均可提交
-@app.route("/submit", methods=["GET", "POST"])
-# 從這裡定義具體的函數 返回值均為json格式
-def submit():
-    # 由於POST、GET獲取資料的方式不同，需要使用if語句進行判斷
-    if request.method == "POST":
-        name = request.form.get("name")
-        age = request.form.get("age")
-    if request.method == "GET":
-        name = request.args.get("name")
-        age = request.args.get("age")
-    # 如果獲取的資料為空
-    if len(name) == 0 or len(age) == 0:
-        return {'message': "error!"}
-    else:
-        myMgDB.insert({'name': name, 'age': age})
-        return {'message': "success!", 'name': name, 'age': age}
-    # (以上為參考測試用)
-
-
 if __name__ == "__main__":
     app.config['TEMPLATES_AUTO_RELOAD'] = True  # 當template有修改會自動更新
     app.debug = True

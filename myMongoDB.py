@@ -9,20 +9,22 @@ def connectDB():
             "mongodb+srv://dbUser1:test123@dbtest.ojwhb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
         )
         db = client.restaurant
-        print('<db connect succeed>')
+        print('<database connect succeed>')
         return db
     except Exception as e:
         print(e)
-        print('<db connect failed>')
+        print('<database connect failed>')
 
 
 # 讀取db collection中全部資料，並集合成list回傳
 def findAllOrder():
     try:
-        db = connectDB()
-        mycol = db.order
+        db = connectDB()    # 建立資料庫連線
+        mycol = db.order  # 使用order這個collection
+        print(mycol.count_documents({}) + " record(s) in database.")  # db['mycol']內有多少筆資料
+
         data = []
-        print(mycol.count_documents({}))  # db['mycol']內有多少筆資料
+        # 將資料放入data array中
         doc: object
         for num, doc in enumerate(mycol.find({})):
             # print("doc {}: {}".format(num, doc))  # 印出json內容確認
@@ -33,12 +35,12 @@ def findAllOrder():
         print(e)
         return "action:find all <error!>"
 
-
+# 新增單筆資料
 # insert_one
 # input parameter為 dict,json...
 def insert(jsonodj):
-    db = connectDB()
-    mycol = db.order
+    db = connectDB()       # 建立資料庫連線
+    mycol = db.order     # 使用order這個collection
     today = datetime.datetime.now()  # 當日日期
     datestr = str(today).split(' ')[0].replace('-', '')  # 當日日期字串處理
     timestr = str(today).split(' ')[1].split('.')[0].replace('.', '')
@@ -53,13 +55,16 @@ def insert(jsonodj):
 
 
 # delete_one
-# 單筆刪除
+# 單筆資料刪除
 def delByID(idKey):
     print("<to delete> id=", idKey)
+    # 使用 _id 作為條件
     query = {"_id": idKey}
     try:
-        db = connectDB()
-        mycoll = db.order
+        db = connectDB()    # 建立資料庫連線
+        mycoll = db.order   # 使用order這個collection
+
+        # 從db中刪除 _id符合的該筆資料
         mycoll.delete_one(query)
         print("[" + idKey + "]deleted")
     except Exception as e:
@@ -71,8 +76,8 @@ def delByID(idKey):
 def findMany(query=""):
     print("<find Many> 條件=", query)
     try:
-        db = connectDB()
-        mycol = db.order
+        db = connectDB()    # 建立資料庫連線
+        mycol = db.order     # 使用order這個collection
         data = []
         doc: object
         for num, doc in enumerate(mycol.find(query)):
@@ -83,7 +88,7 @@ def findMany(query=""):
     except Exception as e:
         print(e)
 
-
+# 搜尋單筆資料
 # find_one()
 # db collection中符合query的第一筆doc
 # example: query = {"date": "20210520"}
@@ -102,7 +107,7 @@ def findOne(query=""):
 # 搜尋條件例子 myquery = {"_id": "2021-05-20_16.03.30.647379"}
 # values參數
 # 單一欄位值變更 格式:{欄位名稱:變更的新值} values範例-> {"data.telephone": "(11)11111111"}
-# 多個欄位值變更 values範例-> {"data.telephone": "(11)11111111", "data.Customer_name": "小野大輔"}
+# 多個欄位值變更 values範例-> {"data.telephone": "(11)11111111", "data.Customer_name": "AMY"}
 def updateOne(myquery, values) -> object:
     try:
         db = connectDB()
