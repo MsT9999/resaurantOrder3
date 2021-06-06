@@ -108,11 +108,16 @@ def delete_by_idKey():
 # 資料UpdateOne
 @app.route('/Update1', methods=["GET", "POST"])
 def UpdateOne():  # 更新doc到db collection
-    print(request.form)
-    print(request.args)
+    # print(request.form)
+    # print(request.args)
+    if request.method == "POST":
+        myQuery = request.form.get("query")
+        updateData = request.form.get("newValue")
+    if request.method == "GET":
+        myQuery = request.args.get("query")
+        updateData = request.form.get("newValue")
     try:
-        # 這邊要調用myMongoDB.py的相關方法
-        # myMgDB.updateOne() #需要參數 request的json之類的
+        myMgDB.updateOne(myQuery,updateData)
         return {'message': "success!", "action": "UpdateOne"}
     except Exception as e:
         print(e)

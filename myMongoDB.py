@@ -52,7 +52,7 @@ def insert(jsonodj):
         "data": jsonodj
     }
     mycol.insert_one(post)
-    print("successfully inserted %n post date=",post)
+    print("successfully inserted %n post date=", post)
 
 
 # delete_one
@@ -106,12 +106,12 @@ def findOne(query=""):
 # values參數
 # 單一欄位值變更 格式:{欄位名稱:變更的新值} values範例-> {"data.telephone": "(11)11111111"}
 # 多個欄位值變更 values範例-> {"data.telephone": "(11)11111111", "data.Customer_name": "小野大輔"}
-def updateOne(myquery, values):
+def updateOne(myquery, values) -> object:
     try:
         db = connectDB()
-        mycol = db.order
-        newvalues = {"$set": values}
-        mycol.update_one(myquery, newvalues)
+        mycoll = db.order
+        newValues = {"$set": values}
+        mycoll.update_one(myquery, newValues)
         print("already updated")
     except Exception as e:
         print(e)
@@ -137,8 +137,25 @@ def updateMany(myquery, values):
 def example_update():
     db = connectDB()
     mycol = db.order
-    myquery = {"_id": "2021-05-20_16.03.30.647379"}
-    newvalues = {"$set": {"data.telephone": "(11)11111111", "data.Customer_name": "小野大輔"}}  # {$set: {欄位名稱:變更的新值}}
+    myquery = {"_id": "2021-06-05_20.06.50.150301"}
+    test = {
+        "data": {
+            "name": "Abby",
+            "phoneNumber": "091234567859",
+            "VIP": "false",
+            "Table_number": "105",
+            "Meals": {
+                "pre": "菲達起司鮮果沙拉123",
+                "soup": "大蒜馬鈴薯湯1231",
+                "dish": "海鹽醬烤茭白筍1321",
+                "main": "香烤豬大排1231",
+                "garnishes": "義式烤時蔬123",
+                "dessert": "焦糖烤布雷",
+                "drink": "黑森林莓果茶"
+            }
+        }
+    }
+    newvalues = {"$set": test}  # {$set: {欄位名稱:變更的新值}}
     mycol.update_one(myquery, newvalues)
     print("modified")
 
@@ -155,7 +172,7 @@ def example_insert():
         "_id": str(today).replace(" ", "_").replace(":", "."),
         "date": datestr,
         "time": timestr,
-        "data": {"Customer_name": "凹醬",
+        "data": {"name": "UwU",
                  "telephone": "0912123123",
                  "VIP": False,
                  "Meals": {
