@@ -5,6 +5,7 @@ import pymongo
 # 資料庫連線
 def connectDB():
     try:
+        print('建立資料庫連線...')
         client = pymongo.MongoClient(
             "mongodb+srv://dbUser1:test123@dbtest.ojwhb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
         )
@@ -21,7 +22,7 @@ def findAllOrder():
     try:
         db = connectDB()    # 建立資料庫連線
         mycol = db.order  # 使用order這個collection
-        print(mycol.count_documents({}) + " record(s) in database.")  # db['mycol']內有多少筆資料
+        print(str(mycol.count_documents({})) + " record(s) in database.")  # db['mycol']內有多少筆資料
 
         data = []
         # 將資料放入data array中
@@ -29,7 +30,7 @@ def findAllOrder():
         for num, doc in enumerate(mycol.find({})):
             # print("doc {}: {}".format(num, doc))  # 印出json內容確認
             data.append(doc)
-        # print(data)
+        print(data) #印出collection中所有資料
         return data
     except Exception as e:
         print(e)
@@ -176,7 +177,7 @@ def example_insert():
         "_id": str(today).replace(" ", "_").replace(":", "."),
         "date": datestr,
         "time": timestr,
-        "data": {"name": "UwU",
+        "data": {"name": "Ardbert",
                  "telephone": "0912123123",
                  "VIP": False,
                  "Meals": {
@@ -199,3 +200,4 @@ if __name__ == '__main__':
     findAllOrder()
     example_insert()
     example_update()
+    findAllOrder()

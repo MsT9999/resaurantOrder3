@@ -24,8 +24,6 @@
             <button class="btn btn-outline-success btn-lg" onclick="view()">更新資料</button>
         </td>
         <td></td>
-        <td></td>
-        <td></td>
         <td style="width:24%"><h1>訂單列表</h1></td>
         <td></td>
         <td>
@@ -84,7 +82,7 @@ function view() {       //view() function
                 " <button class='btn btn-outline-primary btn-sm' onclick=\"modifyThis('" + data[item]._id + "'); location.href='modify' \">修改此訂單</button>"+
                 " <button class='btn btn-outline-danger btn-sm' onclick=\"deleteThis('" + data[item]._id + "');\">刪除此訂單</button>"+
                 "</div>"+ "<ul>"+
-                "<li>時間:" + data[item].date +" "+ data[item].time +
+                "<li>時間:" + data[item].datetime +
                 "<li>客人姓名: " + data[item].data.name +
                 phoneNumber +
                 VIP +
