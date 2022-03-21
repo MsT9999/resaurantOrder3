@@ -1,36 +1,96 @@
-import pymongo
-import datetime
+import pymongo # 引入python mongo的module
+import datetime # 引入datetime的module
 
 
-def connectDB():    # 建立資料庫連線
+def connectDB():  # 建立資料庫連線
     try:
         print('connecting...')
         # 建立Mongo Client的連線
         client = pymongo.MongoClient(
             "mongodb+srv://dbUser1:test123@dbtest.ojwhb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-        )   # 此處字串於雲端Atler的連接方式中複製
+        )  # 此處字串於雲端Atler的連接方式中複製
         db = client.restaurant  # 使用名稱為restaurant的database
         print('connected successfully!')
-        return db   # 回傳database
+        return db  # 回傳database
     except Exception as e:  # 例外錯誤處理
-        print(e)    # 印出錯誤訊息
+        print(e)  # 印出錯誤訊息
 
 
-def exampleFindAll():   # 查詢collection中全部文件，並印出
+def exampleFindAll():  # 查詢collection中全部文件，並印出
     try:
         db = connectDB()  # 建立資料庫連線
         myCollection = db.order  # 使用名稱為order的collection
         # 印出db['<myCollection>']內有多少筆document
         print(str(myCollection.count_documents({})) + " record(s)")
-        data = []   # 宣告data為list
+        data = []  # 宣告data為list
         for doc in myCollection.find({}):
-            data.append(doc)    # 將資料放入data的[]中
+            data.append(doc)  # 將資料放入data的[]中
         print(data)  # 印出collection中所有資料
     except Exception as e:  # 例外錯誤處理
-        print(e)    # 印出錯誤訊息
+        print(e)  # 印出錯誤訊息
 
 
-def exampleUpdate():    # 測試example 修改
+def exampleInsert():  # 測試 example 新增
+    try:
+        db = connectDB()  # 建立資料庫連線
+        myCollection = db.order  # 使用名稱為order的collection
+        today = datetime.datetime.now()  # 使用datetime取得當時時間日期
+        post = {
+            "_id": "10001",
+            "datetime": today,
+            "data": {"name": "Ardbert",
+                     "phoneNumber": "0912123123",
+                     "VIP": False,
+                     "Table_number": "18",
+                     "Meals": {
+                         "pre": "沙拉",
+                         "soup": "馬鈴薯湯",
+                         "main": "茭白筍",
+                         "dish": "豬大排",
+                         "garnishes": "當季時蔬",
+                         "dessert": "烤布雷",
+                         "drink": "果茶"
+                     }
+            }
+        }
+        # 執行insert_one指令，用post_id紀錄insert之_id結果資訊
+        post_id = myCollection.insert_one(post).inserted_id
+        # 印出insert之_id與insert成功訊息
+        print(str(post_id) + " inserted successfully!")
+    except Exception as e:  # 例外錯誤處理
+        print(e)  # 印出錯誤訊息
+
+def exampleInsert2():  # 測試 example 新增
+    try:
+        db = connectDB()  # 建立資料庫連線
+        myCollection = db.order  # 使用名稱為order的collection
+        today = datetime.datetime.now()  # 使用datetime取得當時時間日期
+        post = {
+            "_id": "10002",
+            "datetime": today,
+            "data": {"name": "Bella",
+                     "phoneNumber": "0988765432",
+                     "VIP": False,
+                     "Table_number": "9",
+                     "Meals": {
+                         "pre": "X",
+                         "soup": "蔬菜湯",
+                         "main": "茭白筍",
+                         "dish": "牛排",
+                         "garnishes": "時蔬",
+                         "dessert": "黑森林蛋糕",
+                         "drink": "水"
+                     }
+            }
+        }
+        # 執行insert_one指令，用post_id紀錄insert之_id結果資訊
+        post_id = myCollection.insert_one(post).inserted_id
+        # 印出insert之_id與insert成功訊息
+        print(str(post_id) + " inserted successfully!")
+    except Exception as e:  # 例外錯誤處理
+        print(e)  # 印出錯誤訊息
+
+def exampleUpdate():  # 測試example 修改
     today = datetime.datetime.now()  # 當日日期
     db = connectDB()
     mycol = db.order
@@ -58,45 +118,20 @@ def exampleUpdate():    # 測試example 修改
     print("updated successfully!")
 
 
-def testUpdate():   # 測試example 修改
-    db = connectDB()    # 建立資料庫連線
-    myCollection= db.order  # 使用名稱為order的collection
-    query = {"_id": "10001"}    # 查詢條件
-    newValue = {
-        "data.phoneNumber": "0912123456"
-    }   # 要修改的資料內容 {欄位名稱:變更的新值}
-    setValues = {"$set": newValue}  # {$set: {欄位名稱:變更的新值}}
-    myCollection.update_one(query, setValues)   # 執行update_one
-    print("updated successfully!")
-
-
-def exampleInsert():    # 測試 example 新增
+def testUpdate():  # 測試example 修改
     try:
-        db = connectDB()    # 建立資料庫連線
-        myCollection = db.order    # 使用名稱為order的collection
-        today = datetime.datetime.now()  # 當日日期
-        post = {
-            "_id": "10001",
-            "datetime": today,
-            "data": {"name": "Ardbert",
-                     "phoneNumber": "0912123123",
-                     "VIP": False,
-                     "Table_number": "18",
-                     "Meals": {
-                         "pre": "沙拉",
-                         "soup": "馬鈴薯湯",
-                         "main": "茭白筍",
-                         "dish": "豬大排",
-                         "garnishes": "當季時蔬",
-                         "dessert": "烤布雷",
-                         "drink": "果茶"
-                     }
-            }
-        }
-        post_id = myCollection.insert_one(post)
-        print(str(post_id) + " inserted successfully!")
+        db = connectDB()  # 建立資料庫連線
+        myCollection = db.order  # 使用名稱為order的collection
+        query = {"_id": "10001"}  # 查詢條件
+        newValue = {
+            "data.phoneNumber": "0912123456"
+        }  # 要修改的資料內容 {欄位名稱:變更的新值}
+        setValues = {"$set": newValue}  # {$set: {欄位名稱:變更的新值}}
+        myCollection.update_one(query, setValues)  # 執行update_one
+        print("updated successfully!")
     except Exception as e:  # 例外錯誤處理
-        print(e)    # 印出錯誤訊息
+        print(e)  # 印出錯誤訊息
+
 
 def deleteByID(delId="10001"):  # delID為輸入參數，作為指定查詢_id的變數
     try:
@@ -104,7 +139,7 @@ def deleteByID(delId="10001"):  # delID為輸入參數，作為指定查詢_id�
         db = connectDB()  # 建立資料庫連線
         mycoll = db.order  # 使用order這個collection
         query = {"_id": delId}  # 此處使用 _id 作為查詢條件
-        mycoll.delete_one(query)    # 從db中刪除 _id符合的該筆資料
+        mycoll.delete_one(query)  # 從db中刪除 _id符合的該筆資料
         print("[_id=" + delId + "]deleted successfully!")
     except Exception as e:  # 例外錯誤處理
         print(e)  # 印出錯誤訊息
@@ -116,7 +151,8 @@ def testDelete():
         mycoll = db.order  # 使用order這個collection
         # 從db中刪除 _id符合的該筆資料
         mycoll.delete_one({"_id": "10001"})
-        print("[_id=10001]deleted successfully!")
+        mycoll.delete_one({"_id": "10002"})
+        print("[_id=10001,10002]deleted successfully!")
     except Exception as e:  # 例外錯誤處理
         print(e)  # 印出錯誤訊息
 
@@ -126,6 +162,8 @@ if __name__ == '__main__':
     testDelete()
     exampleFindAll()
     exampleInsert()
+    exampleInsert2()
     exampleFindAll()
     testUpdate()
     exampleFindAll()
+
